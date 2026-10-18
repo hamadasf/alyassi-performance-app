@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">متابعة الأداء</string>
+    <string name="app_url" translatable="false">https://script.google.com/macros/s/AKfycbxSwhJ3HcVU5GsfOcjWzzrRLkwpKt48rRt4h5CV9qbnb0wKesZjOT2HOZPZTma9saszaA/exec</string>
+    <string name="offline_title">لا يوجد اتصال بالإنترنت</string>
+    <string name="offline_body">تأكد من الاتصال ثم أعد المحاولة</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="choose_file">اختر ملف</string>
+    <string name="downloading">جاري التحميل…</string>
+    <string name="saved">تم الحفظ في التنزيلات</string>
+    <string name="download_failed">تعذر تحميل الملف</string>
+    <string name="no_app">لا يوجد تطبيق لفتح هذا الرابط</string>
+    <string name="press_again">اضغط رجوع مرة أخرى للخروج</string>
+</resources>
