@@ -40,11 +40,25 @@ jobs:
           python3 scripts/make_icons.py brand/emblem.png
 
       - name: Signing key
+        id: key
         env:
           KS_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KS_PW: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
         run: |
-          if [ -z "$KS_B64" ]; then echo "::error::Add the ANDROID_KEYSTORE_BASE64 and ANDROID_KEYSTORE_PASSWORD secrets"; exit 1; fi
-          echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          if [ -z "$KS_B64" ] || [ -z "$KS_PW" ]; then
+            echo "::warning::Signing secrets missing — building a test copy only."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Test build (no signing key yet)
+        if: steps.key.outputs.ok != 'true'
+        run: |
+          gradle --no-daemon assembleDebug
+          echo "::error::The app compiles. Add the ANDROID_KEYSTORE_BASE64 and ANDROID_KEYSTORE_PASSWORD secrets to publish a release."
+          exit 1
 
       - name: Build APK + AAB
         env:
